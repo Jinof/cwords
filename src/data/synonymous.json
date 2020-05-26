@@ -1,0 +1,38 @@
+{
+  "level1": [
+    ["collect", "gather"],
+    ["correct", "right"],
+    ["frightened", "scared"],
+    ["anxiety", "worry"],
+    ["bare", "naked"],
+    ["exchange", "swap"],
+    ["busy", "occupied"],
+    ["carry", "bear"],
+    ["cautious", "wary"],
+    ["courage", "bravery"]
+  ],
+  "level2": [
+    ["about", "approximately"],
+    ["fearless", "intrepid"],
+    ["flexible", "elastic"],
+    ["adequate", "sufficient"],
+    ["believable", "credible"],
+    ["biased", "prejudiced"],
+    ["arrest", "apprehend"],
+    ["satisfied", "contended"],
+    ["spotless", "stainless"],
+    ["end", "terminate"]
+  ],
+  "level3": [
+    ["accumulate", "amass"],
+    ["accommodate", "reconcile"],
+    ["minimize", "belittle"],
+    ["acclaim", "acclamation"],
+    ["commence", "institute"],
+    ["clarify", "elucidate"],
+    ["conscientious", "scrupulous"],
+    ["calamity", "catastrophe"],
+    ["unrelenting", "relentless"],
+    ["flammable", "inflammable"]
+  ]
+}
