@@ -26,7 +26,7 @@ function Shuffle(ary: Array<number>) {
 // NewAry returns an 5x4=20 array.
 function NewAry() {
   let ary: Array<number> = new Array<number>()
-  for (let _i = 0; _i < 25; _i++) {
+  for (let _i = 0; _i < 20; _i++) {
     ary.push(_i)
   }
 
