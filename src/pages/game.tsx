@@ -1,12 +1,20 @@
 import React from "react";
-import {WordsInMatrix} from "../components/wordsInMatrix"
+import { WordsInMatrix } from "../components/wordsInMatrix"
+import { Header } from "../components/headBar"
+import { Box, Container, Divider } from "@material-ui/core";
 
 export class Game extends React.Component<any, any>{
   render() {
     return (
-      <div>
-        <WordsInMatrix />
-      </div>
+      <Box>
+        <Box style={{ textAlign: 'center', justifyContent: 'center', padding: 20}}>
+          Welcome to the synomnous game.
+        </Box>
+        <Divider />
+        <Box style={{marginTop: 20}}>
+          <WordsInMatrix />
+        </Box>
+      </Box>
     )
   }
 }
