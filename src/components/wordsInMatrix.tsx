@@ -105,7 +105,7 @@ export class WordsInMatrix extends React.Component<Props, state> {
         <Divider />
         <Box style={{ textAlign: 'center' }}>
           <Box>
-            Please choose the dificullty.
+            Please choose the difficulty.
           </Box>
           <ButtonGroup variant="text" color="primary" aria-label="text primary button group" >
             <Button onClick={() => this.handelChickLevel("level1")}>Level1</Button>
