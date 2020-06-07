@@ -2,9 +2,9 @@ import React from "react";
 import { Box, Button, Grid, ButtonGroup, Divider } from "@material-ui/core"
 import './styles.css';
 
-function SingleWord(props: { key: number, value: string, onClickHandler: Function, show: boolean; }) {
+function SingleWord(props: { theKey: number, value: string, onClickHandler: Function, show: boolean; }) {
   return (
-    <Button key={props.key} onClick={props.onClickHandler()} id={"singleWord"} color="default">
+    <Button key={props.theKey} onClick={props.onClickHandler()} id={"singleWord"} color="default">
       {props.show ? props.value : ""}
     </Button>
   )
@@ -13,17 +13,17 @@ function SingleWord(props: { key: number, value: string, onClickHandler: Functio
 function Border(props: { data: Array<Array<string>>, matrix: Array<Array<number>>, onClickHandler: Function, show: Array<Array<boolean>>; }) {
 
   let renderBorder = (num: number, data: string, onClickHandler: Function, show: boolean) => {
-    return <SingleWord key={num} value={data} onClickHandler={onClickHandler} show={show} />
+    return <SingleWord theKey={num} value={data} onClickHandler={onClickHandler} show={show} />
   }
 
   console.log(props.matrix)
 
-  let Item = props.matrix.map((ary) => {
+  let Item = props.matrix.map((ary, aryIndex) => {
 
     return (
-      <>
-        {ary.map((num) => {
-          return <Grid container item xs={3}>
+      <React.Fragment key={aryIndex}>
+        {ary.map((num, numIndex) => {
+          return <Grid container item xs={3} key={aryIndex * 10 + numIndex}>
             {
               renderBorder(num,
                 props.data[parseInt((num / 2).toString())][num % 2],
@@ -33,11 +33,9 @@ function Border(props: { data: Array<Array<string>>, matrix: Array<Array<number>
             }
           </Grid>
         })}
-      </>
+      </React.Fragment>
     )
   })
-
-  console.log(Item)
 
   return (
     <Grid container spacing={1} justify="center" alignItems="center">
