@@ -8,7 +8,7 @@ export class Game extends React.Component<any, any>{
     return (
       <Box>
         <Box style={{ textAlign: 'center', justifyContent: 'center', padding: 20}}>
-          Welcome to the synomnous game.
+          Welcome to the synonymous game.
         </Box>
         <Divider />
         <Box style={{marginTop: 20}}>
