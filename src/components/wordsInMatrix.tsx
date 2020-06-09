@@ -50,7 +50,6 @@ interface state {
   data: Array<Array<string>>
   show: Array<Array<boolean>>
   first: number
-  second: number
   matrix: Array<Array<number>>
 }
 
@@ -63,7 +62,6 @@ export class WordsInMatrix extends React.Component<Props, state> {
       data: new Array(10).fill(Array(2).fill("test")),
       show: new Array(10).fill(Array(2).fill(true)),
       first: -1,
-      second: -1,
       matrix: new Array(5).fill(Array(4).fill(1)),
     }
   }
@@ -92,7 +90,14 @@ export class WordsInMatrix extends React.Component<Props, state> {
   handelChickLevel = (level: string) => {
     let matrix = this.matrix()
     let data = this.getData(level)
-    this.setState({ level: level, data: data, matrix: matrix })
+    this.setState({
+      level: level,
+      data: data,
+      matrix: matrix ,
+      show: new Array(10).fill(Array(2).fill(true)),
+      score: 0,
+      first: -1,
+    })
   }
 
   handelSynonyms = (second: number) => {
