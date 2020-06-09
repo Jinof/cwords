@@ -4,7 +4,7 @@ import './styles.css';
 
 function SingleWord(props: { theKey: number, value: string, onClickHandler: Function, show: boolean; }) {
   return (
-    <Button key={props.theKey} onClick={props.onClickHandler()} id={"singleWord"} color="default">
+    <Button key={props.theKey} disabled={!props.show} onClick={() => props.onClickHandler()} id={"singleWord"} color="default">
       {props.show ? props.value : ""}
     </Button>
   )
@@ -12,11 +12,9 @@ function SingleWord(props: { theKey: number, value: string, onClickHandler: Func
 
 function Border(props: { data: Array<Array<string>>, matrix: Array<Array<number>>, onClickHandler: Function, show: Array<Array<boolean>>; }) {
 
-  let renderBorder = (num: number, data: string, onClickHandler: Function, show: boolean) => {
-    return <SingleWord theKey={num} value={data} onClickHandler={onClickHandler} show={show} />
+  let renderBorder = (num: number, data: string, show: boolean) => {
+    return <SingleWord theKey={num} value={data} onClickHandler={() => props.onClickHandler(num)} show={show} />
   }
-
-  console.log(props.matrix)
 
   let Item = props.matrix.map((ary, aryIndex) => {
 
@@ -27,7 +25,6 @@ function Border(props: { data: Array<Array<string>>, matrix: Array<Array<number>
             {
               renderBorder(num,
                 props.data[parseInt((num / 2).toString())][num % 2],
-                props.onClickHandler,
                 props.show[parseInt((num / 2).toString())][num % 2]
               )
             }
@@ -54,24 +51,25 @@ interface state {
   show: Array<Array<boolean>>
   first: number
   second: number
+  matrix: Array<Array<number>>
 }
 
 export class WordsInMatrix extends React.Component<Props, state> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      level: "level1",
+      level: "",
       score: 0,
       data: new Array(10).fill(Array(2).fill("test")),
       show: new Array(10).fill(Array(2).fill(true)),
-      first: 0,
-      second: 0,
+      first: -1,
+      second: -1,
+      matrix: new Array(5).fill(Array(4).fill(1)),
     }
   }
 
   getData = (level: string) => {
     const json = require('../data/synonymous.json')
-    console.log(level, json[level])
     return json[level]
   }
 
@@ -79,33 +77,64 @@ export class WordsInMatrix extends React.Component<Props, state> {
     return NewMatrix()
   }
 
-  handleClick = () => {
+  componentDidUpdate() {
 
+  }
+
+  handleClick = (num: number) => {
+    if (this.state.first !== -1) {
+      this.handelSynonyms(num)
+    } else {
+      this.setState({first: num})
+    }
   }
 
   handelChickLevel = (level: string) => {
+    let matrix = this.matrix()
     let data = this.getData(level)
-    this.setState({ level: level, data: data })
+    this.setState({ level: level, data: data, matrix: matrix })
+  }
+
+  handelSynonyms = (second: number) => {
+    if (this.state.first !== -1 && second !== -1
+      && this.state.first !== second &&isSynonyms(this.state.first, second, this.state.data)) {
+      let show = this.state.show.slice() as Array<Array<boolean>>
+
+      show[parseInt((this.state.first / 2).toString())] = [false, false]
+
+      let score = this.state.score + 10
+      this.setState({show: show, first: -1, score: score})
+    } else {
+      this.setState({first: second})
+    }
   }
 
   render() {
-    let matrix = this.matrix().slice()
     let data = this.state.data
     let show = this.state.show
 
-    console.log(this.state.level, data)
+    let score = () => {
+      if (this.state.level !== "") {
+        return "Current score:" + this.state.score + "/100"
+      } else {
+        return ""
+      }
+    }
 
     return (
       <Box>
         <Box marginBottom={2} style={{minHeight: 200, minWidth: 400}} >
-          <Border data={data} matrix={matrix} onClickHandler={this.handleClick} show={show} />
+          <Border data={data} matrix={this.state.matrix} onClickHandler={(num: number) => this.handleClick(num)} show={show} />
         </Box>
         <Divider />
-        <Box style={{ textAlign: 'center' }}>
+        <Box textAlign={'center'}>
+         {score()}
+        </Box>
+        <Box style={{ textAlign: 'center'}}>
           <Box>
             Please choose the level.
           </Box>
-          <ButtonGroup variant="text" color="primary" aria-label="text primary button group" >
+          <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
             <Button onClick={() => this.handelChickLevel("level1")}>Level1</Button>
             <Button onClick={() => this.handelChickLevel("level2")}>Level2</Button>
             <Button onClick={() => this.handelChickLevel("level3")}>Level3</Button>
@@ -116,16 +145,20 @@ export class WordsInMatrix extends React.Component<Props, state> {
   }
 }
 
-// function check() {
-//   for (let _i = 0;_i < 10; _i++) {
-//     if (json[this.state.levelCorrect][_i].indexOf(this.state.clickedArray[0]) !== -1) {
-//       return this.state.clickedArray[1] === json[this.state.levelCorrect][_i][1] ||
-//         this.state.clickedArray[1] === json[this.state.levelCorrect][_i][2]
-//     }
-//   }
-//
-//   return false
-// }
+function calculate(show: Array<Array<boolean>>) {
+  let score = 0;
+  for (let _i = 0; _i < show.length; _i++) {
+    if (show[_i] == [false, false]) {
+      score += 10
+    }
+  }
+
+  return score
+}
+
+function isSynonyms(first: number, second : number, data: Array<Array<string>>) {
+  return data[parseInt((first / 2).toString())] === data[parseInt((second / 2).toString())];
+}
 
 // Matrix is a function returns a scrambled array.
 function Shuffle(ary: Array<number>) {
