@@ -38,13 +38,13 @@ export class WordsInMatrix extends React.Component<Props, state> {
 
   handleClick = (num: number) => {
     if (this.state.first !== -1) {
-      this.handelSynonyms(num)
+      this.handleSynonyms(num)
     } else {
       this.setState({first: num})
     }
   }
 
-  handelChickLevel = (level: string) => {
+  handleChickLevel = (level: string) => {
     let matrix = this.matrix()
     let data = this.getData(level)
     this.setState({
@@ -57,7 +57,7 @@ export class WordsInMatrix extends React.Component<Props, state> {
     })
   }
 
-  handelSynonyms = (second: number) => {
+  handleSynonyms = (second: number) => {
     if (this.state.first !== -1 && second !== -1
       && this.state.first !== second && isSynonyms(this.state.first, second, this.state.data)) {
       let show = this.state.show.slice() as Array<Array<boolean>>
@@ -98,9 +98,9 @@ export class WordsInMatrix extends React.Component<Props, state> {
             Please choose the level.
           </Box>
           <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-            <Button onClick={() => this.handelChickLevel("level1")}>Level1</Button>
-            <Button onClick={() => this.handelChickLevel("level2")}>Level2</Button>
-            <Button onClick={() => this.handelChickLevel("level3")}>Level3</Button>
+            <Button onClick={() => this.handleChickLevel("level1")}>Level1</Button>
+            <Button onClick={() => this.handleChickLevel("level2")}>Level2</Button>
+            <Button onClick={() => this.handleChickLevel("level3")}>Level3</Button>
           </ButtonGroup>
         </Box>
       </Box>

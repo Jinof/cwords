@@ -1,7 +1,6 @@
 import React from "react";
-import {WordsInMatrix} from "../components/wordsInMatrix"
-import {Header} from "../components/headBar"
-import {Box, Container, Divider} from "@material-ui/core";
+import {WordsInMatrix} from "../components/game/wordsInMatrix"
+import {Box, Divider} from "@material-ui/core";
 
 export class Game extends React.Component<any, any> {
   render() {
