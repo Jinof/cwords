@@ -1,10 +1,10 @@
 import React from 'react';
-import {Game} from './pages/game'
+import {Home} from "./pages/home";
 
 function App() {
   return (
-    <div>
-      <Game/>
+    <div style={styles.App}>
+      <Home />
     </div>
   );
 }
