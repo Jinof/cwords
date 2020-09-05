@@ -30,7 +30,7 @@ export class WordsInMatrix extends React.Component<Props, state> {
   }
 
   getData = (level: string) => {
-    const json = require('../data/synonymous.json')
+    const json = require('../../data/synonymous.json')
     return json[level]
   }
 
